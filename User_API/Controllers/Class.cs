@@ -50,6 +50,7 @@ namespace User_API.Controllers
         public ActionResult Ubdate(int Id, Users users)
         {
             var _user_ = User_Repo.Get(Id);
+            if (users.Id != Id) return BadRequest("Can't Ubdate ");
             if (_user_ != null)
                 User_Repo.Ubdate(users);
             return Ok();
