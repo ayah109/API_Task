@@ -2,55 +2,72 @@
 
 namespace User_API.Repo
 {
-    public class User_Repo
+    public class User_Repo : IUser_Repo
     {
-        static List<Users> user_list { get; set; }
+        private List<Users> Users { get; set; }
+        private UserContext User_context;
 
-        static User_Repo()
+        public User_Repo(UserContext context)
         {
-            user_list = new List<Users>()
+            User_context = context;
+        }
+
+        public List<Users> GetAll()
+        {
+            List<Users> User;
+           
+                User = User_context.Set<Users>().ToList();
+            
+            return User;
+        }
+
+        public Users Get(int id)
+        {
+            Users Users;
+            try
             {
-                new Users() { Id = 1, First_Name = "Aya", Last_Name = "Dar Ali Hussain"},
-                new Users() { Id = 2, First_Name = "Weam", Last_Name = "Hjaji"},
-                new Users() { Id = 3, First_Name = "Ala", Last_Name = "Sawada"},
-                new Users() { Id = 4, First_Name = "Israa", Last_Name = "Haseeba"},
-                new Users() { Id = 5, First_Name = "Mohammad", Last_Name = "Ahmad"}
-
-            };
-
+                Users = User_context.Find<Users>(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Users;
         }
 
-        public static List<Users> GetAll()
+        public void Delete(int Id)
         {
-            return user_list;
+            Users _temp = Get(Id);
+            if (_temp != null)
+            {
+                User_context.Remove<Users>(_temp);
+                User_context.SaveChanges();
+            }
         }
 
-        public static Users Get(int id)
+        public void Ubdate(Users user)
         {
-            return user_list.FirstOrDefault(userr => userr.Id == id);
+            Users _temp = Get(user.Id);
+            if (_temp != null)
+            {
+                _temp.Id = user.Id;
+                _temp.First_Name = user.First_Name;
+                _temp.Last_Name = user.Last_Name;
+                
+                User_context.Update<Users>(_temp);
+                User_context.SaveChanges();
+            }
+
         }
 
-        public static void Delete(int id)
+        public void Add(Users user)
         {
-            var user_del = Get(id);
-            if (user_del != null)
-                user_list.Remove(user_del);
-        }
-
-        public static void Add(Users users)
-        {
-            user_list.Add(users);
-        }
-
-        public static void Ubdate(Users users)
-        {
-            var index = user_list.FindIndex(user_ubd => user_ubd.Id == users.Id);
-            if (index == -1)
-                return;
-            user_list[index] = users;
+            User_context.Add<Users>(user);
+            User_context.SaveChanges();
 
         }
+     }
+
     }
-}
 
 

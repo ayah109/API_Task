@@ -8,19 +8,27 @@ namespace User_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Class : ControllerBase
+
+    public class UserController : ControllerBase
     {
+        private readonly IUser_Repo user_Repo;
+
+        public UserController(IUser_Repo user_Repo)
+        {
+            this.user_Repo = user_Repo;
+        }   
+
         [HttpGet]
         public ActionResult<List<Users>> GetAll()
         {
-            return User_Repo.GetAll();
+            return user_Repo.GetAll();
         }
 
 
         [HttpGet("{id}")]
         public ActionResult<Users> Get(int id)
         {
-            var USER = User_Repo.Get(id);
+            var USER = user_Repo.Get(id);
             if (USER == null)
                 return NotFound();
             return USER;
@@ -30,18 +38,18 @@ namespace User_API.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-        var USER = User_Repo.Get(id);
-        if (USER == null)
-            return NotFound();
-        User_Repo.Delete(id);
-         return Ok();
+            var USER = user_Repo.Get(id);
+            if (USER == null)
+                return NotFound();
+            user_Repo.Delete(id);
+            return Ok();
 
         }
 
         [HttpPost]
         public ActionResult Create(Users users)
         {
-            User_Repo.Add(users);
+            user_Repo.Add(users);
             return Ok();
 
         }
@@ -49,16 +57,13 @@ namespace User_API.Controllers
         [HttpPut]
         public ActionResult Ubdate(int Id, Users users)
         {
-            var _user_ = User_Repo.Get(Id);
+            var _user_ = user_Repo.Get(Id);
             if (users.Id != Id) return BadRequest("Can't Ubdate ");
             if (_user_ != null)
-                User_Repo.Ubdate(users);
+                user_Repo.Ubdate(users);
             return Ok();
 
         }
-
-
-
 
     }
 }
