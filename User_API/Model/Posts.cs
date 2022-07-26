@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace User_API.Model
 {
-    public class Posts
+    public class Posts : BaseModel
     {
-        [Key]
-        public int PostId { get; set; }
-
+       
         public String Title { get; set; }
 
         [ForeignKey("Users")]

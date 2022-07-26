@@ -3,17 +3,9 @@ using User_API.Model;
 
 namespace User_API.Repo
 {
-    public interface IPost_Repo
+    public interface IPost_Repo : IGenRepo<Posts>
     {
 
-        public List<Posts> GetAll();
-
-        public Posts Get(int id);
-
-        public void Delete(int Id);
-
-        public void Ubdate(Posts post);
-        
-        public void Add(Posts post);
+       
     }
 }

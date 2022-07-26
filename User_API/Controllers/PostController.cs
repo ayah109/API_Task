@@ -57,10 +57,10 @@ namespace User_API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Ubdate(int Id, Posts posts)
+        public ActionResult Ubdate(int id, Posts posts)
         {
-            var _post_ = post_Repo.Get(Id);
-            if (posts.PostId != Id) 
+            var _post_ = post_Repo.Get(id);
+            if (posts.Id != id) 
                 return BadRequest("Can't Ubdate ");
             if (_post_ != null)
                 post_Repo.Ubdate(posts);
