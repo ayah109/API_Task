@@ -6,11 +6,7 @@ namespace User_API
     {
         public static void InitServ(this IServiceCollection iserv)
         {
-            iserv.AddEndpointsApiExplorer();
-
-            iserv.AddSwaggerGen();
-
-            iserv.AddControllers();
+            
 
             iserv.AddScoped<User_API.Repo.IUser_Repo, User_API.Repo.User_Repo>();
 

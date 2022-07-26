@@ -8,7 +8,7 @@ namespace User_API.Model
        
         public String Title { get; set; }
 
-        [ForeignKey("Users")]
+        [ForeignKey(nameof(userss))]
         public int UserId { get; set; }
 
         public Users? userss { get; set; }

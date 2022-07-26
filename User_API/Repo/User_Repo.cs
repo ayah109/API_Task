@@ -1,4 +1,5 @@
-﻿using User_API.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using User_API.Model;
 
 namespace User_API.Repo
 {
@@ -6,11 +7,12 @@ namespace User_API.Repo
     {
         public User_Repo(UserContext context) : base(context)
         {
-
-        }
-
-
     }
-}
+        public new List<Users> ? GetAll()
+        {
+            return _context.Users.Include(c => c.Posts).ToList();
+        }
+    }
 
 
+  }

@@ -21,7 +21,8 @@ namespace User_API.Controllers
         [HttpGet]
         public ActionResult<List<Users>> GetAll()
         {
-            return user_Repo.GetAll();
+            var x =  user_Repo.GetAll();
+            return x;
         }
 
 

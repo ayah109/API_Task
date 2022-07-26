@@ -18,7 +18,7 @@ namespace User_API.Repo
     }
     public class GenRepo<T> : IGenRepo<T> where T : class , IBaseModel
     {
-        private readonly UserContext _context;
+        public UserContext _context;
 
         public GenRepo(UserContext context)
         {
