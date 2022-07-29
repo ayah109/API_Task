@@ -20,6 +20,7 @@ namespace User_API.Controllers
         }
 
         [HttpGet]
+        [Filtter("Admin")]
         public ActionResult<List<Posts>> GetAll()
         {
             return post_Repo.GetAll();

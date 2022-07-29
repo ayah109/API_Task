@@ -6,16 +6,22 @@ using User_API;
 var builder = WebApplication.CreateBuilder(args);
 
 
+builder.Services.AddScoped<Filtter>(RoleKey => new Filtter("Admin"));
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
+//Database connection 
 builder.Services.AddDbContext<UserContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("ConStr")));
+
 builder.Services.InitServ();
 
 var app = builder.Build();
+
+app.UseMiddleWareEx();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

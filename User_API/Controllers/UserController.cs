@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using User_API.Model;
 using User_API.Repo;
@@ -19,6 +20,7 @@ namespace User_API.Controllers
         }   
 
         [HttpGet]
+        [Filtter("Admin")] //prevent request with wrong key , for Role Header
         public ActionResult<List<Users>> GetAll()
         {
             var x =  user_Repo.GetAll();
