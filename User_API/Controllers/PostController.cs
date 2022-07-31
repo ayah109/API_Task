@@ -21,16 +21,16 @@ namespace User_API.Controllers
 
         [HttpGet]
         [Filtter("Admin")]
-        public ActionResult<List<Posts>> GetAll()
+        public async Task <ActionResult<List<Posts>>> GetAll()
         {
-            return post_Repo.GetAll();
+            return await post_Repo.GetAll();
         }
 
 
         [HttpGet("{id}")]
-        public ActionResult<Posts> Get(int id)
+        public async Task<ActionResult<Posts>> Get(int id)
         {
-            var POST = post_Repo.Get(id);
+            var POST = await post_Repo.Get(id);
             if (POST == null)
                 return NotFound();
             return POST;
@@ -52,7 +52,7 @@ namespace User_API.Controllers
         public ActionResult Create(Posts post)
         {
            // if (post.userss == Users.Id)
-                post_Repo.Add(post);
+            post_Repo.Add(post);
             return Ok();
 
         }

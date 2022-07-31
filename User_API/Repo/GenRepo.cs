@@ -5,13 +5,13 @@ namespace User_API.Repo
     public interface IGenRepo<T> where T : class, IBaseModel
     {
 
-        public List<T>? GetAll();
+        public Task<List<T>> GetAll();
 
-        public T Get(int id);
+        public Task<T> Get(int id);
 
-        public T Add(T user);
+        public Task<T> Add(T user);
 
-        public T Ubdate(T user);
+        public Task<T> Ubdate(T user);
 
         public void Delete(int id);
 
@@ -25,45 +25,34 @@ namespace User_API.Repo
             _context = context;
         }
 
-        public List<T>? GetAll()
+        public async Task<List<T>> GetAll()
         {
           return _context.Set<T>().ToList();
-
         }
 
-        public T? Get(int id)
+        public async Task< T>? Get(int id)
         {
             return _context.Set<T>().Find(id);
-            
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
             var _temp = _context.Set<T>().FirstOrDefault(c => c.Id ==  id);
-           _context.Set<T>().Remove(_temp);
-           _context.SaveChanges();
-            
+            _context.Set<T>().Remove(_temp);
+            await _context.SaveChangesAsync();
         }
-
-        public T Ubdate(T obj)
+        public async Task<T> Ubdate(T obj)
         {
-            _context.Set<T>().Update(obj);
-            _context.SaveChanges();
+           _context.Set<T>().Update(obj);
+           await _context.SaveChangesAsync();
             return obj;
-
-
         }
-
-        public T Add(T obj)
+        public async Task<T> Add(T obj)
         {
-            _context.Set<T>().Add(obj);
-            _context.SaveChanges();
+            await _context.Set<T>().AddAsync(obj);
+            await _context.SaveChangesAsync();
             return obj;
 
         }
-
-
-
-
     }
 }

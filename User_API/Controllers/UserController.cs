@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using User_API.Model;
 using User_API.Repo;
 
-
 namespace User_API.Controllers
 {
     [Route("api/[controller]")]
@@ -13,7 +12,6 @@ namespace User_API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUser_Repo user_Repo;
-
         public UserController(IUser_Repo user_Repo)
         {
             this.user_Repo = user_Repo;
@@ -21,20 +19,19 @@ namespace User_API.Controllers
 
         [HttpGet]
         [Filtter("Admin")] //prevent request with wrong key , for Role Header
-        public ActionResult<List<Users>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            var x =  user_Repo.GetAll();
-            return x;
+            var x = await user_Repo.GetAll();
+            return Ok(x);
         }
 
-
         [HttpGet("{id}")]
-        public ActionResult<Users> Get(int id)
+        public async Task<ActionResult<Users>> Get(int id)
         {
             var USER = user_Repo.Get(id);
             if (USER == null)
                 return NotFound();
-            return USER;
+            return Ok(USER);
 
         }
 
@@ -46,7 +43,6 @@ namespace User_API.Controllers
                 return NotFound();
             user_Repo.Delete(id);
             return Ok();
-
         }
 
         [HttpPost]
@@ -54,7 +50,6 @@ namespace User_API.Controllers
         {
             user_Repo.Add(users);
             return Ok();
-
         }
 
         [HttpPut]
@@ -65,8 +60,6 @@ namespace User_API.Controllers
             if (_user_ != null)
                 user_Repo.Ubdate(users);
             return Ok();
-
         }
-
     }
 }
