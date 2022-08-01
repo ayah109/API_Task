@@ -44,6 +44,14 @@
               "target": "Package",
               "version": "[7.3.0, )"
             },
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.7, )"
@@ -65,6 +73,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
+            },
+            "dotConnect.Express.for.Oracle": {
+              "target": "Package",
+              "version": "[10.0.0, )"
             }
           },
           "imports": [

@@ -1,17 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "geODLa5/DEC689PtQwuj+ovuHGp540hWHSlbSBe9XcDAz2Dwd7xFudi5xSIl7OhXpjDPlo+wkzth4W8EztPtyQ==",
+  "dgSpecHash": "UBXstiSQuEve57p6MDNzqXgBy9y6ePb1v8HFAt4iQJc1+DSYF2zijx8wrG1aqycwIihtM/ka+HwKIja+TlgB7g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Owner's\\Desktop\\Summer_Trainig\\User_API\\User_API\\User_API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Owner's\\.nuget\\packages\\abp\\7.3.0\\abp.7.3.0.nupkg.sha512",
+    "C:\\Users\\Owner's\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\Owner's\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\castle.core.asyncinterceptor\\2.1.0\\castle.core.asyncinterceptor.2.1.0.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\castle.loggingfacility\\5.1.1\\castle.loggingfacility.5.1.1.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\castle.windsor\\5.1.1\\castle.windsor.5.1.1.nupkg.sha512",
+    "C:\\Users\\Owner's\\.nuget\\packages\\dotconnect.express.for.oracle\\10.0.0\\dotconnect.express.for.oracle.10.0.0.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\jetbrains.annotations\\2022.1.0\\jetbrains.annotations.2022.1.0.nupkg.sha512",
-    "C:\\Users\\Owner's\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Owner's\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\1.1.2\\microsoft.dotnet.platformabstractions.1.1.2.nupkg.sha512",
@@ -160,5 +163,16 @@
     "C:\\Users\\Owner's\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Owner's\\.nuget\\packages\\timezoneconverter\\5.0.0\\timezoneconverter.5.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'dotConnect.Express.for.Oracle 10.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "dotConnect.Express.for.Oracle",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }
