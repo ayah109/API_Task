@@ -8,8 +8,7 @@ namespace User_API.Model
         public DbSet<Users> Users {get; set;}
 
         public DbSet<Posts> Posts {get; set;}
-
-
+        public object PostVM { get; internal set; }
     }
 
 }

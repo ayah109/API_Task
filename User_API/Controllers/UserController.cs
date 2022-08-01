@@ -35,7 +35,6 @@ namespace User_API.Controllers
             var USER = await user_Repo.Get(id);
             if (USER == null)
                 return NotFound();
-
             return _mapper.Map<Users, UserVM>(USER);
 
         }
@@ -59,14 +58,11 @@ namespace User_API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Ubdate(int Id, UserVM uservm)
+        public async Task Ubdate(int Id, UserVM uservm)
         {
-            var _user_ = user_Repo.Get(Id);
-            if (uservm.Id != Id) 
-                return BadRequest("Can't Ubdate ");
-            if (_user_ != null)
-                user_Repo.Ubdate(_mapper.Map<Users>(uservm));
-            return Ok();
+            
+               await user_Repo.Ubdate(_mapper.Map<Users>(uservm));
+         
         }
     }
 }

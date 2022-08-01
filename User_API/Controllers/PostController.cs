@@ -25,6 +25,7 @@ namespace User_API.Controllers
         
         [HttpGet]
        // [Filtter("Admin")]
+
         public async Task <ActionResult<List<PostVM>>> GetAll()
         {
             var v = await post_Repo.GetAll();
@@ -62,15 +63,10 @@ namespace User_API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Ubdate(int id, PostVM postvm)
+        public async Task Ubdate(int id, PostVM postvm)
         {
-            var _post_ = post_Repo.Get(id);
-            if (postvm.Id != id) 
-                return BadRequest("Can't Ubdate ");
-            if (_post_ != null)
-                post_Repo.Ubdate(_mapper.Map<Posts>(postvm));
-                return Ok();
-
+                await post_Repo.Ubdate(_mapper.Map<Posts>(postvm));
+               
         }
 
     }

@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using User_API.Model;
+using User_API.ViewModel;
 
 namespace User_API.Repo
 {
@@ -9,12 +11,11 @@ namespace User_API.Repo
         {
 
         }
-        public new List<Posts>? GetAll()
+        public async Task<List<Posts>> GetAll()
         {
             return _context.Posts.Include(c => c.userss).ToList();
         }
 
     }
 }
-
 

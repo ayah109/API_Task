@@ -37,7 +37,7 @@ namespace User_API.Repo
 
         public async void Delete(int id)
         {
-            var _temp = _context.Set<T>().FirstOrDefault(c => c.Id ==  id);
+            var _temp = await _context.Set<T>().FirstOrDefault(c => c.Id ==  id);
             _context.Set<T>().Remove(_temp);
             await _context.SaveChangesAsync();
         }
