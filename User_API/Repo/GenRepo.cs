@@ -1,4 +1,5 @@
-﻿using User_API.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using User_API.Model;
 
 namespace User_API.Repo
 {
@@ -13,7 +14,7 @@ namespace User_API.Repo
 
         public Task<T> Ubdate(T user);
 
-        public void Delete(int id);
+        public Task Delete(int id);
 
     }
     public class GenRepo<T> : IGenRepo<T> where T : class , IBaseModel
@@ -35,12 +36,14 @@ namespace User_API.Repo
             return _context.Set<T>().Find(id);
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
-            var _temp = await _context.Set<T>().FirstOrDefault(c => c.Id ==  id);
-            _context.Set<T>().Remove(_temp);
-            await _context.SaveChangesAsync();
+            var _temp =await _context.Set<T>().FirstOrDefaultAsync(c => c.Id ==  id);
+           _context.Set<T>().Remove(_temp);
+           await _context.SaveChangesAsync();
         }
+
+
         public async Task<T> Ubdate(T obj)
         {
            _context.Set<T>().Update(obj);

@@ -40,13 +40,13 @@ namespace User_API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task Delete(int id)
         {
-            var USER = user_Repo.Get(id);
-            if (USER == null)
-                return NotFound();
-            user_Repo.Delete(id);
-            return Ok();
+           // var USER = user_Repo.Get(id);
+           // if (USER == null)
+             //   return NotFound();
+            await user_Repo.Delete(id);
+            //return Ok();
         }
 
         [HttpPost]

@@ -45,13 +45,11 @@ namespace User_API.Controllers
 
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task Delete(int id)
         {
-            var POST = post_Repo.Get(id);
-            if (POST == null)
-                return NotFound();
-            post_Repo.Delete(id);
-            return Ok();
+            
+           await post_Repo.Delete(id);
+            
         }
 
         [HttpPost]
