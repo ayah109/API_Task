@@ -51,11 +51,11 @@ namespace User_API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(UserVM uservm)
+        public async Task Create(UserVM uservm)
         {
             var userv = _mapper.Map<Users>(uservm);
-            user_Repo.Add(userv);
-            return Ok();
+            await user_Repo.Add(userv);
+            
         }
 
         [HttpPut]

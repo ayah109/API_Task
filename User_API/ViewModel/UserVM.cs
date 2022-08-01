@@ -10,6 +10,6 @@ namespace User_API.ViewModel
 
         public string Last_Name { get; set; }
 
-        public ICollection<PostVM>? PostV { get; set; }
+        public ICollection<PostVM>? Posts { get; set; }
     }
 }
