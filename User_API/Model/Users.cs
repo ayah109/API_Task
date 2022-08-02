@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace User_API.Model
 {
-    public class Users:BaseModel
+    public class Users:IdentityUser<int>, IBaseModel
     {
         
         public string First_Name { get; set; }
@@ -12,4 +13,7 @@ namespace User_API.Model
         public ICollection<Posts>? Posts { get; set; }
 
     }
+
+
+   
 }

@@ -8,6 +8,7 @@ using User_API.ViewModel;
 
 namespace User_API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 
