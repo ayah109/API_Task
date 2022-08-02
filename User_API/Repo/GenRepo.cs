@@ -1,14 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using User_API.Model;
+using AutoMapper;
+using User_API.ViewModel;
+using AutoMapper.QueryableExtensions;
+using System.Linq;
 
 namespace User_API.Repo
 {
     public interface IGenRepo<T> where T : class, IBaseModel
     {
 
-        public Task<List<T>> GetAll();
+        public Task<List<TVM>> GetAll<TVM>();
 
-        public Task<T> Get(int id);
+        public Task<TVM> Get<TVM>(int id) where TVM :class , IBaseModel;
 
         public Task<T> Add(T user);
 
@@ -20,20 +24,22 @@ namespace User_API.Repo
     public class GenRepo<T> : IGenRepo<T> where T : class , IBaseModel
     {
         public UserContext _context;
+        public readonly IMapper _mapper;
 
-        public GenRepo(UserContext context)
+        public GenRepo(UserContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<T>> GetAll()
+        public async Task<List<TVM>>GetAll<TVM>() 
         {
-          return _context.Set<T>().ToList();
+            return  _context.Set<T>().ProjectTo<TVM>(_mapper.ConfigurationProvider).ToList();
         }
 
-        public async Task< T>? Get(int id)
+        public async Task<TVM>? Get<TVM>(int id) where TVM :class , IBaseModel
         {
-            return _context.Set<T>().Find(id);
+            return _context.Set<T>().ProjectTo<TVM>(_mapper.ConfigurationProvider).FirstOrDefault(x => x.Id == id);
         }
 
         public async Task Delete(int id)

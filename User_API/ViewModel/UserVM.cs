@@ -4,7 +4,7 @@ namespace User_API.ViewModel
 {
     public class UserVM :BaseModel
     {
-        public int Id { get; set; }
+       // public int Id { get; set; }
 
         public string First_Name { get; set; }
 

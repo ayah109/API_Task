@@ -28,19 +28,19 @@ namespace User_API.Controllers
 
         public async Task <ActionResult<List<PostVM>>> GetAll()
         {
-            var v = await post_Repo.GetAll();
-            return _mapper.Map< List<PostVM>>(v);
+            var v = await post_Repo.GetAll<PostVM>();
+            return v;
 
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<PostVM>> Get(int id)
         {
-            var POST = await post_Repo.Get(id);
+            var POST = await post_Repo.Get<PostVM>(id);
             if (POST == null)
                 return NotFound();
 
-            return _mapper.Map<Posts, PostVM>(POST);
+            return POST;
         }
 
 

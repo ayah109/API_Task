@@ -25,17 +25,17 @@ namespace User_API.Controllers
         //[Filtter("Admin")] //prevent request with wrong key , for Role Header
         public async Task<ActionResult <List<UserVM>>> GetAll()
         {
-            var x = await user_Repo.GetAll();
-            return _mapper.Map<List<UserVM>>(x);
+            var x = await user_Repo.GetAll<UserVM>();
+            return x;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<UserVM>> Get(int id)
         {
-            var USER = await user_Repo.Get(id);
+            var USER = await user_Repo.Get<UserVM>(id);
             if (USER == null)
                 return NotFound();
-            return _mapper.Map<Users, UserVM>(USER);
+            return USER;
 
         }
 
@@ -54,7 +54,6 @@ namespace User_API.Controllers
         {
             var userv = _mapper.Map<Users>(uservm);
             await user_Repo.Add(userv);
-            
         }
 
         [HttpPut]

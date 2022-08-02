@@ -1,8 +1,10 @@
-﻿namespace User_API.ViewModel
+﻿using User_API.Model;
+
+namespace User_API.ViewModel
 {
-    public class PostVM
+    public class PostVM :BaseModel
     {
-        public int Id { get; set; }
+      //  public int Id { get; set; }
 
         public String Title { get; set; }
 
