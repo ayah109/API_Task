@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using User_API.Model;
 using User_API.Repo;
 using User_API.ViewModel;
@@ -24,16 +25,16 @@ namespace User_API.Controllers
             this._mapper = _mapper;
         }
 
-        
+       
         [HttpGet]
        // [Filtter("Admin")]
-
         public async Task <ActionResult<List<PostVM>>> GetAll()
         {
             var v = await post_Repo.GetAll<PostVM>();
             return v;
 
         }
+       
 
         [HttpGet("{id}")]
         public async Task<ActionResult<PostVM>> Get(int id)
@@ -58,9 +59,14 @@ namespace User_API.Controllers
         public async Task Create(PostVM postvm)
         {
             var postv = _mapper.Map<Posts>(postvm);
+            var idClaim = User.Claims.FirstOrDefault(x => x.Type.Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+            var id_u = idClaim?.Value;
+            postv.UserId = Convert.ToInt32(id_u);
             await post_Repo.Add(postv);
             
         }
+
+       
 
         [HttpPut]
         public async Task Ubdate(int id, PostVM postvm)

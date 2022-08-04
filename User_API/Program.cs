@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using User_API.Auth;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +18,11 @@ ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddScoped<Filtter>(RoleKey => new Filtter("Admin"));
 
 
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
+
+builder.Services.AddEndpointsApiExplorer();
 // For Identity
 builder.Services.AddIdentity<Users, UserRoles>()
     .AddEntityFrameworkStores<UserContext>().AddDefaultTokenProviders();
@@ -33,20 +35,49 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 
-// Adding Jwt Bearer
 .AddJwtBearer(options =>
 {
-    options.SaveToken = false;
-    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    //options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidAudience = configuration["JWT:ValidAudience"],
-        ValidIssuer = configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["JWT:ValidAudience"],
+        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
     };
 });
+
+builder.Services.AddSwaggerGen(option =>
+{
+    option.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+{
+    {
+        new OpenApiSecurityScheme
+        {
+            Name = "Bearer",
+            In = ParameterLocation.Header,
+            Reference = new OpenApiReference
+            {
+                Id = "Bearer",
+                Type = ReferenceType.SecurityScheme
+            }
+        },
+        new List<string>()
+    }
+});
+});
+
 
 //View modle 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -60,8 +91,6 @@ var app = builder.Build();
 
 app.UseMiddleWareEx();
 
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -71,6 +100,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

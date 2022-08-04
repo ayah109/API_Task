@@ -30,6 +30,9 @@ namespace User_API.Controllers
             return x;
         }
 
+     
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<UserVM>> Get(int id)
         {
