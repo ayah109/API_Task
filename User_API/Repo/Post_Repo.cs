@@ -12,10 +12,15 @@ namespace User_API.Repo
         {
 
         }
-       // public async Task<List<Posts>> GetAll()
-       // {
-          //  return _context.Posts.Include(c => c.userss).ToList();
+        // public async Task<List<Posts>> GetAll()
+        // {
+        //  return _context.Posts.Include(c => c.userss).ToList();
         //}
+
+        public async Task<List<Posts>> Search(int page, int size, string search)
+        {
+            return _context.Posts.Skip(page * size).Take(size).Where(x => x.Title.Contains(search)).ToList();
+        }
 
     }
 }

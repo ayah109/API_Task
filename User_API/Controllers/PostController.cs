@@ -13,7 +13,6 @@ namespace User_API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-
     public class PostController : ControllerBase
     {
         private readonly IPost_Repo post_Repo;
@@ -25,7 +24,6 @@ namespace User_API.Controllers
             this._mapper = _mapper;
         }
 
-       
         [HttpGet]
        // [Filtter("Admin")]
         public async Task <ActionResult<List<PostVM>>> GetAll()
@@ -34,7 +32,12 @@ namespace User_API.Controllers
             return v;
 
         }
-       
+
+        [HttpGet("Search")]
+        public async Task<ActionResult<List<Posts>>> Search(int page, int size, string search)
+        {
+            return await post_Repo.Search(page, size, search);
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<PostVM>> Get(int id)
@@ -46,19 +49,17 @@ namespace User_API.Controllers
             return POST;
         }
 
-
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            
-           await post_Repo.Delete(id);
-            
+           await post_Repo.Delete(id); 
         }
 
         [HttpPost]
         public async Task Create(PostVM postvm)
         {
             var postv = _mapper.Map<Posts>(postvm);
+            //take id from token of login 
             var idClaim = User.Claims.FirstOrDefault(x => x.Type.Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
             var id_u = idClaim?.Value;
             postv.UserId = Convert.ToInt32(id_u);
@@ -66,15 +67,11 @@ namespace User_API.Controllers
             
         }
 
-       
-
         [HttpPut]
         public async Task Ubdate(int id, PostVM postvm)
         {
                 await post_Repo.Ubdate(_mapper.Map<Posts>(postvm));
                
         }
-
     }
-
 }
