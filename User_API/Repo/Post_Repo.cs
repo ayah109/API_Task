@@ -19,9 +19,9 @@ namespace User_API.Repo
 
         public async Task<List<Posts>> Search(int page, int size, string search)
         {
-            return _context.Posts.Skip(page * size).Take(size).Where(x => x.Title.Contains(search)).ToList();
+            return _context.Posts.Where(x => x.Title.Contains(search)).Skip(page * size).Take(size).ToList();
         }
 
-    }
+    }//refliction magic
 }
 

@@ -11,6 +11,14 @@ namespace User_API.Model
         [ForeignKey(nameof(userss))]
         public int UserId { get; set; }
 
+        public DateTime CreatDate { get; set; }
+
+        public DateTime UbdateDate { get; set; }
+
+        public int CreateBy { get; set; }
+
+        public int UbdateBy { get; set; }
+
         public Users? userss { get; set; }
 
 

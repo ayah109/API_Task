@@ -57,14 +57,19 @@ namespace User_API.Controllers
         public async Task Create(UserVM uservm)
         {
             var userv = _mapper.Map<Users>(uservm);
-            await user_Repo.Add(userv);
+            var idClaim = User.Claims.FirstOrDefault(x => x.Type.Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+            var id_u = idClaim?.Value;
+            uservm.Id = Convert.ToInt32(id_u);
+            await user_Repo.Add(userv, Convert.ToInt32(id_u));
         }
 
         [HttpPut]
-        public async Task Ubdate(int Id, UserVM uservm)
+        public async Task Ubdate( UserVM uservm)
         {
-            
-               await user_Repo.Ubdate(_mapper.Map<Users>(uservm));
+            var idClaim = User.Claims.FirstOrDefault(x => x.Type.Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+            var id_u = idClaim?.Value;
+
+            await user_Repo.Ubdate(_mapper.Map<Users>(uservm), Convert.ToInt32(id_u));
          
         }
     }
